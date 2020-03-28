@@ -1,0 +1,12 @@
+* {
+    font-family: sans-serif;
+
+}
+.yes {
+    display: flex;
+}
+
+.image {
+    margin-right: 10px; 
+}
+

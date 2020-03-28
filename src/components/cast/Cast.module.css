@@ -1,0 +1,45 @@
+/* .imageBox {
+    width: 145px;
+    height: 240px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 12px;
+}
+
+.character {
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 2px;
+}
+
+.characterName {
+    font-weight: bold;
+    margin: 0;
+}
+
+.actorCard {
+    box-sizing: border-box;
+    border: 1px solid black;
+    margin-bottom: 5px;
+    text-align: center;
+    padding: 2px;
+}
+
+.name {
+    font-size: 18px;
+    font-style: italic;
+}
+
+.list {
+    width: 90vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0;
+}
+
+.listItem {
+    list-style: none;
+    width: 160px;
+} */
