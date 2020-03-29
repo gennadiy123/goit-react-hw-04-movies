@@ -4,18 +4,17 @@ import styles from "./Cast.module.css";
 
 export default class Cast extends Component {
   state = {
-    cast: []
+    cast: [],
+    error: null
   };
 
   componentDidMount() {
     const id = this.props.location.state.id;
+
     Services.getMovieCast(id)
       .then(({ data }) => {
         this.setState({ cast: data.cast });
       })
-      .catch(error => {
-        console.log(error);
-      });
   }
 
   render() {

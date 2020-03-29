@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import Services from "../Services";
-import { NavLink, Link, Route } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import Cast from "../cast/Cast";
-import styles from './MovieDetailsPage.module.css'
-
-
-// import queryString from "query-string";
+import Reviews from "../reviews/Reviews";
+import styles from "./MovieDetailsPage.module.css";
 
 class MovieDetailsPage extends Component {
   state = {
@@ -13,20 +11,10 @@ class MovieDetailsPage extends Component {
   };
 
   componentDidMount() {
-    // const queryParamas = queryString.parse(this.props.location)
-    // console.log('queryParams', queryParams)
     Services.getMovieDetails(this.props.location.state.id).then(data =>
       this.setState({ movie: data.data })
     );
   }
-
-  handleGoback = () => {
-    const { history, location } = this.props;
-    if (location.state) {
-      return history.push(location.state.from);
-    }
-    // return histoty.push("/");
-  };
 
   render() {
     const somePath = "https://image.tmdb.org/t/p/original";
@@ -40,21 +28,22 @@ class MovieDetailsPage extends Component {
         ))
       : null;
 
-    const activeStyle = {
-      color: "palevioletred"
-    };
-
-    const {match, location} = this.props;
+    const { match, location } = this.props;
 
     return (
       <>
+        <Link to="/" className="goBack">
+          Go back
+        </Link>
         <div className="yes">
-          {this.state.movie.poster_path && <img
-            className="image"
-            alt="Poster"
-            src={`${somePath}${this.state.movie.poster_path}`}
-            width={300}
-          />}
+          {this.state.movie.poster_path && (
+            <img
+              className="image"
+              alt="Poster"
+              src={`${somePath}${this.state.movie.poster_path}`}
+              width={300}
+            />
+          )}
           <div>
             <h2>
               {this.state.movie.title}({year})
@@ -70,23 +59,32 @@ class MovieDetailsPage extends Component {
           <p>Additional information</p>
           <ul className={styles.moreInfo}>
             <li>
-              <Link
-                to={{
-                  pathname: `/movies/${this.state.movie.id}/credits`,
-                  state: { ...location }
-                }}
-              >
-                Cast
-              </Link>
+              {this.state.movie.id && (
+                <Link
+                  to={{
+                    pathname: `/movies/${this.state.movie.id}/credits`,
+                    state: { ...location.state }
+                  }}
+                >
+                  Cast
+                </Link>
+              )}
             </li>
             <li>
-              <NavLink exact to="/" activeStyle={activeStyle}>
-
-                Reviews
-              </NavLink>
+              {this.state.movie.id && (
+                <Link
+                  to={{
+                    pathname: `/movies/${this.state.movie.id}/reviews`,
+                    state: { ...location.state }
+                  }}
+                >
+                  Reviews
+                </Link>
+              )}
             </li>
           </ul>
-          <Route path={`${match.path}/credits`} component={Cast}/>
+          <Route path={`${match.path}/credits`} component={Cast} />
+          <Route path={`${match.path}/reviews`} component={Reviews} />
         </div>
       </>
     );
