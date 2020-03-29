@@ -5,8 +5,8 @@ axios.defaults.baseURL = "https://api.themoviedb.org/3/";
 const API_KEY = "c32a3cf86520dce9c4baf6ce5f9d83c6";
 
 const params = {
-  api_key: API_KEY,
-  language: "ru-RU"
+  api_key: API_KEY
+  // language: "en-EN",
 };
 
 export default {
@@ -31,13 +31,14 @@ export default {
   },
 
   async getMovieCast(id) {
-    try {
-      const data = await axios.get(`/movie/${id}/credits`, { params });
-      return data;
-    } 
-    catch (error) {
-      console.log("error", error);
-      throw new Error(error);
-    }
+    return await axios.get(`/movie/${id}/credits`, { params });
+  },
+
+  async getMovieReviews(id) {
+    return await axios.get(`/movie/${id}/reviews`, { params });
+  },
+
+  async searchMovie(query) {
+    return await axios.get(`/search/movie`, { params: { query, ...params } });
   }
 };
