@@ -5,8 +5,7 @@ axios.defaults.baseURL = "https://api.themoviedb.org/3/";
 const API_KEY = "c32a3cf86520dce9c4baf6ce5f9d83c6";
 
 const params = {
-  api_key: API_KEY
-  // language: "en-EN",
+  api_key: API_KEY,
 };
 
 export default {

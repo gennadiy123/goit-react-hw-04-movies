@@ -1,20 +1,37 @@
-<<<<<<< HEAD
-// import Select from 'react-select';
-=======
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Services from "../Services";
+import queryString from "query-string";
 
 export default class MoviesPage extends Component {
   state = {
     query: "",
-    movies: []
+    movies: [],
+    params: ""
   };
 
-  handleSubmit = e => {
-    Services.searchMovie(this.state.query).then(({ data: { results } }) =>
+componentDidMount() {
+  const query = queryString.parse(this.props.location.search).query
+  console.log(query)
+  if(query !== "") {
+    Services.searchMovie(query).then(({ data: { results } }) =>
       this.setState({ movies: results })
-    );
+    )}
+
+}
+
+
+  handleSubmit = e => {
     e.preventDefault();
+    Services.searchMovie(this.state.query).then(({ data: { results } }) =>
+      this.setState({ movies: results, params: {
+        pathname: "/movies", search: `query=${this.state.query}`
+      } }))
+      
+    
+    this.props.history.push({
+      pathname: "/movies", search: `query=${this.state.query}`
+    })
   };
 
   handleChange = e => {
@@ -30,21 +47,25 @@ export default class MoviesPage extends Component {
             value={this.state.query}
             onChange={this.handleChange}
           />
-          <input type="submit" value="Search"/>
+          <input type="submit" value="Search" />
         </form>
         <ul>
-          {this.state.movies.map((movie, key) => {
-            const path = `https://image.tmdb.org/t/p/original${movie.poster_path}`;
+          {this.state.movies.map(movie => {
             return (
-              <li key={key}>
-                <h2>{movie.title}</h2>
-                <img src={path} alt={movie.title} width={300} />
+              <li key={movie.id}>
+                <Link
+                  to={{
+                    pathname: `/movies/${movie.id}`,
+                    state: { params: {...this.state.params}, id: movie.id }
+                  }}
+                >
+                  <h2 className="movieTitle">{movie.title}</h2>
+                </Link>
               </li>
-            );
+            ); 
           })}
         </ul>
       </>
     );
   }
 }
->>>>>>> 74e31b433afdc2ab9e77831fefd474153b50e470

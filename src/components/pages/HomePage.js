@@ -24,7 +24,8 @@ class HomePage extends Component {
                 to={{
                   pathname: `movies/${movie.id}`,
                   state: {
-                    id: movie.id
+                    id: movie.id,
+                    params: ""
                   }
                 }}
               >

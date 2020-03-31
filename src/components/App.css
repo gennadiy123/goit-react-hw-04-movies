@@ -7,6 +7,29 @@
 }
 
 .image {
-    margin-right: 10px; 
+    margin: 5px 5px 0 0; 
+}
+
+.goBack {
+    border: 1px solid black;
+    text-decoration: none;
+    color: black;
+    background-color: #f0f0f0;
+    padding: 1px 6px;
+}
+
+.links {
+    height: 20px;
+    border-bottom: 1px solid #000;
+    margin-bottom: 5px;
+}
+
+.imageCast {
+    width: 100px;
+}
+
+.movieTitle {
+    font-size: 14px;
+    font-weight: normal;
 }
 

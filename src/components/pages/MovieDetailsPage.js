@@ -7,14 +7,29 @@ import styles from "./MovieDetailsPage.module.css";
 
 class MovieDetailsPage extends Component {
   state = {
-    movie: {}
+    movie: {},
+    params: ""
   };
 
   componentDidMount() {
     Services.getMovieDetails(this.props.location.state.id).then(data =>
-      this.setState({ movie: data.data })
+      this.setState({
+        movie: data.data,
+        params: this.props.location.state.params
+      })
     );
   }
+
+  handleGoback = () => {
+    const { history } = this.props;
+    if (this.state.params !== "") {
+      return history.push({
+        pathname: this.state.params.pathname,
+        search: this.state.params.search
+      });
+    }
+    return history.push("/");
+  };
 
   render() {
     const somePath = "https://image.tmdb.org/t/p/original";
@@ -32,9 +47,9 @@ class MovieDetailsPage extends Component {
 
     return (
       <>
-        <Link to="/" className="goBack">
+        <button type="button" className="goBack" onClick={this.handleGoback}>
           Go back
-        </Link>
+        </button>
         <div className="yes">
           {this.state.movie.poster_path && (
             <img
